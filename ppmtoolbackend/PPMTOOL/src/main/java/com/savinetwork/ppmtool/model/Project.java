@@ -1,4 +1,4 @@
-package com.savinetwork.ppmtool;
+package com.savinetwork.ppmtool.model;
 
 import java.util.Date;
 
