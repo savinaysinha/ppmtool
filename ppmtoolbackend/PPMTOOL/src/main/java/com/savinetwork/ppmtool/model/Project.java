@@ -2,6 +2,7 @@ package com.savinetwork.ppmtool.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "projects")
@@ -21,13 +26,23 @@ public class Project {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank(message = "Project name is required")
 	private String projectName;
+	@NotBlank(message = "Project Identifier is required")
+	@Size(min = 4,max = 5,message = "Please use 4 to 5 characters")
+	@Column(updatable = false,unique = true)
 	private String projectIdentifier;
-	private String decription;
+	
+	private String description;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date startDate;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date endDate;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date created_At;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date updated_At;
 	
 	
@@ -55,12 +70,12 @@ public class Project {
 		this.projectIdentifier = projectIdentifier;
 	}
 
-	public String getDecription() {
-		return decription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDecription(String decription) {
-		this.decription = decription;
+	public void setDescription(String decription) {
+		this.description = decription;
 	}
 
 	public Date getStartDate() {
