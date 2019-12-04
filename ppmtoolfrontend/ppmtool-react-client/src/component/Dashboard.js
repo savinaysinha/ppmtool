@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
+import Project from './projectItems/Project'
+import Navbar from './layouts/Navbar'
 
  class Dashboard extends Component {
     render() {
         return(
-            <h1>Welcome To Dashboard</h1>
-        )
+            <div>
+                <Navbar />
+                <h1>Welcome To Dashboard</h1>
+                <Project />
+            </div>
+            )
     }
 }
 export default Dashboard;
