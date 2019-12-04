@@ -7,7 +7,7 @@ import Navbar from './layouts/Navbar'
         return(
             <div>
                 <Navbar />
-                <h1>Welcome To Dashboard</h1>
+                <h1 className="alert alert-warning">Welcome To Dashboard</h1>
                 <Project />
             </div>
             )
