@@ -8,7 +8,7 @@ class Navbar extends Component {
         <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-4">
           <div className="container">
             <a className="navbar-brand" href="Dashboard.html">
-              Personal Kanban Tool
+              Personal Project Manangement Tool
             </a>
             <button
               className="navbar-toggler"
