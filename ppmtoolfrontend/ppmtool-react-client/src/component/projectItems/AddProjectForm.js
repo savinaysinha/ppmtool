@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import {createProject} from '../../actions/ProjectActions';
+import PropTypes from 'prop-types';
 
 class AddProjectForm extends Component {
   
@@ -19,13 +22,15 @@ class AddProjectForm extends Component {
   onSubmit=(e)=>{
       e.preventDefault();
       const project={
-        projectName: this.state.projectName,
-        projectIdentifier: this.state.projectIdentifier,
-        description: this.state.description,
-        startDate: this.state.startDate,
-        endDate: this.state.endDate
+        "projectName": this.state.projectName,
+        "projectIdentifier": this.state.projectIdentifier,
+        "description": this.state.description,
+        "startDate": this.state.startDate,
+        "endDate": this.state.endDate
       }
-      console.log(project)
+      
+      
+     this.props.createProject(project,this.props.history)
   }
   render() {
     return (
@@ -105,4 +110,13 @@ class AddProjectForm extends Component {
     );
   }
 }
-export default AddProjectForm;
+AddProjectForm.protoType={
+    createProject:PropTypes.func.isRequired
+}
+
+function mapStateToProps(state) {
+  return({
+    errors:state.errors
+  })
+}
+export default connect(mapStateToProps,{createProject})(AddProjectForm);
