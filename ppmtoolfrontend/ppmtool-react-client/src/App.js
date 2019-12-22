@@ -5,15 +5,19 @@ import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navbar from "./component/layouts/Navbar";
 import AddProjectForm from "./component/projectItems/AddProjectForm";
+import {Provider} from 'react-redux';
+import store from './store'
 function App() {
   return (
-    <div className="App">
+    
+    <Provider store={store}>
       <Router>
         <Navbar />
         <Route path="/dashboard" component={Dashboard}/>
         <Route exact path="/addProject" component={AddProjectForm}/>
       </Router>
-    </div>
+      </Provider>
+    
   );
 }
 
