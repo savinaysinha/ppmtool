@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import ProjectItem from "./projectItems/ProjectItem";
 import CreateProjectButton from "./layouts/CreateProjectButton";
+import {getAllProject} from '../actions/ProjectActions'
+import { connect } from "react-redux";
+
 
 
 class Dashboard extends Component {
+  componentDidMount(){
+    this.props.getAllProject();
+  }
   render() {
     return (
       <div>
@@ -33,4 +39,7 @@ class Dashboard extends Component {
     );
   }
 }
-export default Dashboard;
+const mapStateToProps=(state)=>({
+  projects:state.projects
+})
+export default connect(mapStateToProps,{getAllProject}) (Dashboard);
