@@ -10,7 +10,8 @@ class AddProjectForm extends Component {
       projectIdentifier: "",
       description: "",
       startDate: "",
-      endDate: ""
+      endDate: "",
+      errors:{}
     };
    
  
@@ -28,11 +29,18 @@ class AddProjectForm extends Component {
         "startDate": this.state.startDate,
         "endDate": this.state.endDate
       }
-      
-      
      this.props.createProject(project,this.props.history)
   }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.errors){
+      this.setState({
+          errors:nextProps.errors
+      })
+    }
+  }
   render() {
+    const {errors}=this.state
     return (
       <React.Fragment>
         <div className="project">
@@ -50,8 +58,8 @@ class AddProjectForm extends Component {
                       name="projectName"
                       value={this.state.projectName}
                       onChange={this.onChange}
-
                     />
+                    <p>{errors.projectName}</p>
                   </div>
                   <div className="form-group">
                     <input
@@ -63,6 +71,7 @@ class AddProjectForm extends Component {
                       onChange={this.onChange}
                     
                       />
+                      <p>{errors.projectIdentifier}</p>
                   </div>
                   {
                     //} <!-- disabled for Edit Only!! remove "disabled" for the Create operation -->
@@ -75,6 +84,7 @@ class AddProjectForm extends Component {
                       value={this.state.description}
                       onChange={this.onChange}
                     ></textarea>
+                    <p>{errors.description}</p>
                   </div>
                   <h6>Start Date</h6>
                   <div className="form-group">
@@ -111,7 +121,8 @@ class AddProjectForm extends Component {
   }
 }
 AddProjectForm.protoType={
-    createProject:PropTypes.func.isRequired
+    createProject:PropTypes.func.isRequired,
+    errors:PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
