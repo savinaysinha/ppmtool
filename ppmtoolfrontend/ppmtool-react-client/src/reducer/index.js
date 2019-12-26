@@ -4,5 +4,6 @@ import ProjectReducer from "./ProjectReducer";
 export default combineReducers({
     errors:ErrorReducer,
     projects:ProjectReducer,
+    project:ProjectReducer
     
 });
