@@ -1,36 +1,50 @@
 package com.savinetwork.ppmtool.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="backlogs")
+@Table(name = "backlogs")
 public class Backlog {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Integer PTSequence=0;
+	private Integer PTSequence = 0;
 	private String projectIdentifier;
-	
-	//one to one with Project
+
+	// one to one with Project
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="project_id",nullable = false)
+	@JoinColumn(name = "project_id", nullable = false)
 	@JsonIgnore
 	private Project project;
-	
-	//one to many ProjectTask
-	
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "backlog")
+	private List<ProjectTask> projectTasks = new ArrayList<>();
+
 	public Backlog() {
-		
+
+	}
+
+	public List<ProjectTask> getProjectTasks() {
+		return projectTasks;
+	}
+
+	public void setProjectTasks(List<ProjectTask> projectTasks) {
+		this.projectTasks = projectTasks;
 	}
 
 	public Long getId() {
@@ -64,6 +78,5 @@ public class Backlog {
 	public void setProject(Project project) {
 		this.project = project;
 	}
-	
 
 }

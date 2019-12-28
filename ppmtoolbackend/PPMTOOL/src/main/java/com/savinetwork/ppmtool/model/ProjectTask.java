@@ -2,18 +2,21 @@ package com.savinetwork.ppmtool.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="projecttasks")
+@Table(name = "projecttasks")
 public class ProjectTask {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,26 +29,27 @@ public class ProjectTask {
 	private String status;
 	private Integer priority;
 	private Date dueDate;
-	
-	//manyToOne backlog
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "backlog_id", updatable = false, nullable = false)
+	private Backlog backlog;
 	@Column(updatable = false)
 	private String projectIdentifier;
-	
+
 	private Date createdAt;
 	private Date updatedAt;
-	
+
 	public ProjectTask() {
-		
+
 	}
-	
+
 	@PrePersist
 	protected void onCreate() {
-		this.createdAt=new Date();
+		this.createdAt = new Date();
 	}
-	
+
 	@PreUpdate
 	protected void onUpdate() {
-		this.updatedAt=new Date();
+		this.updatedAt = new Date();
 	}
 
 	public Long getId() {
@@ -135,9 +139,5 @@ public class ProjectTask {
 				+ ", dueDate=" + dueDate + ", projectIdentifier=" + projectIdentifier + ", createdAt=" + createdAt
 				+ ", updatedAt=" + updatedAt + "]";
 	}
-	
 
-	
-	
-	
 }
