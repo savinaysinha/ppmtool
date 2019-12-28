@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.savinetwork.ppmtool.exception.ProjectIdentifierException;
+import com.savinetwork.ppmtool.model.Backlog;
 import com.savinetwork.ppmtool.model.Project;
+import com.savinetwork.ppmtool.repository.BacklogRepository;
 import com.savinetwork.ppmtool.repository.ProjectRepository;
 
 @Service
@@ -12,9 +14,26 @@ public class ProjectService {
 
 	@Autowired
 	private ProjectRepository projectRepository;
+	
+	@Autowired
+	private BacklogRepository backlogRepository;
 
 	public Project createProject(Project project) {
-		project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+		String projectIdentifier=project.getProjectIdentifier().toUpperCase();
+		project.setProjectIdentifier(projectIdentifier);
+		
+		if(project.getId()==null) {
+			Backlog backlog = new Backlog();
+			backlog.setProject(project);
+			backlog.setProjectIdentifier(projectIdentifier);
+			project.setBacklog(backlog);
+		}
+		
+		if(project.getId()!=null) {
+			project.setBacklog(backlogRepository.findByProjectIdentifier(projectIdentifier));
+		}
+		
+		
 		try {
 			return projectRepository.save(project);
 		}catch (Exception e) {

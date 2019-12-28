@@ -7,5 +7,6 @@ import com.savinetwork.ppmtool.model.Backlog;
 
 @Repository
 public interface BacklogRepository extends CrudRepository<Backlog, Long> {
-
+	Backlog findByProjectIdentifier(String projectIdentifier);
+	
 }

@@ -2,11 +2,14 @@ package com.savinetwork.ppmtool.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -35,6 +38,9 @@ public class Project {
 	@NotBlank(message = "Project description is required")
 	private String description;
 	
+	@OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "project")
+	private Backlog backlog;
+	
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date startDate;
 	@JsonFormat(pattern = "yyyy-MM-dd")
@@ -47,6 +53,15 @@ public class Project {
 	private Date updated_At;
 	
 	
+	
+	public Backlog getBacklog() {
+		return backlog;
+	}
+
+	public void setBacklog(Backlog backlog) {
+		this.backlog = backlog;
+	}
+
 	public Long getId() {
 		return id;
 	}
