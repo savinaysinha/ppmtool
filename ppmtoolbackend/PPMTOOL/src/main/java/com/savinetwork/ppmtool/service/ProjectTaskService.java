@@ -37,4 +37,8 @@ public class ProjectTaskService {
 		
 		return projectTaskRepository.save(projectTask);
 	}
+	public Iterable<ProjectTask> findProjectTaskByProjectIdentifier(String projectIdentifier){
+		System.out.println(projectTaskRepository.findByProjectIdentifier(projectIdentifier));
+		return projectTaskRepository.findByProjectIdentifier(projectIdentifier);
+	}
 }

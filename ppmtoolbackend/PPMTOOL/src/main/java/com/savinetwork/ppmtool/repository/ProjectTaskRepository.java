@@ -7,5 +7,5 @@ import com.savinetwork.ppmtool.model.ProjectTask;
 
 @Repository
 public interface ProjectTaskRepository extends CrudRepository<ProjectTask, Long> {
-
+	Iterable<ProjectTask> findByProjectIdentifier(String projectIdentifier);
 }
