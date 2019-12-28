@@ -15,6 +15,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "projecttasks")
 public class ProjectTask {
@@ -31,6 +33,7 @@ public class ProjectTask {
 	private Date dueDate;
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "backlog_id", updatable = false, nullable = false)
+	@JsonIgnore
 	private Backlog backlog;
 	@Column(updatable = false)
 	private String projectIdentifier;
@@ -41,6 +44,17 @@ public class ProjectTask {
 	public ProjectTask() {
 
 	}
+	
+	
+	public Backlog getBacklog() {
+		return backlog;
+	}
+
+
+	public void setBacklog(Backlog backlog) {
+		this.backlog = backlog;
+	}
+
 
 	@PrePersist
 	protected void onCreate() {
