@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -86,11 +87,15 @@ public class ProjectTaskService {
 		if(!updatedProjectTask.getProjectIdentifier().equals(projectIdentifier)) {
 			throw new ProjectNotFoundException("Project Not Found");
 		}
-		ProjectTask projectTask = projectTaskRepository.findByprojectSequence(projectSequence);
+		ProjectTask projectTask = findProjectTaskByProjectSequennce(projectIdentifier, projectSequence);
 		projectTask=updatedProjectTask;
 		return projectTaskRepository.save(projectTask);
 	}
-	
+
+	public void deleteProjectTask(String projectIdentifier, String projectSequence) {
+		ProjectTask projectTask = findProjectTaskByProjectSequennce(projectIdentifier, projectSequence);
+		projectTaskRepository.delete(projectTask);
+	}
 	
 	
 }
