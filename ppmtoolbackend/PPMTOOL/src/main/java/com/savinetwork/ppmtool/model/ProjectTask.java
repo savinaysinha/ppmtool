@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +32,7 @@ public class ProjectTask {
 	private String status;
 	private Integer priority;
 	private Date dueDate;
-	@ManyToOne(cascade = CascadeType.REFRESH)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "backlog_id", updatable = false, nullable = false)
 	@JsonIgnore
 	private Backlog backlog;
