@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.savinetwork.ppmtool.exception.ProjectNotFoundException;
 import com.savinetwork.ppmtool.model.Backlog;
+import com.savinetwork.ppmtool.model.Project;
 import com.savinetwork.ppmtool.model.ProjectTask;
 import com.savinetwork.ppmtool.repository.BacklogRepository;
 import com.savinetwork.ppmtool.repository.ProjectTaskRepository;
@@ -60,6 +61,21 @@ public class ProjectTaskService {
 
 	public ProjectTask findProjectTaskByProjectSequennce(String projectIdentifier, String projectSequence) {
 		
-		return projectTaskRepository.findByprojectSequence(projectSequence);
+		Backlog backlog = backlogRepository.findByProjectIdentifier(projectIdentifier);
+		if(backlog==null) {
+			throw new ProjectNotFoundException("Project Not Found");
+		}
+		
+		ProjectTask projectTask = projectTaskRepository.findByprojectSequence(projectSequence);
+		
+		if(projectTask==null) {
+			throw new ProjectNotFoundException("Project Not Found");
+		}
+		
+		if(!projectTask.getProjectIdentifier().equals(projectIdentifier)) {
+			throw new ProjectNotFoundException("Project Not Found");
+		}
+		
+		return projectTask;
 	}
 }
