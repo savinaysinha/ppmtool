@@ -1,11 +1,11 @@
 import { GET_PROJECTS, GET_PROJECT, DELETE_PROJECT } from "../actions/type";
 
-const intialState = {
+const initialState = {
   projects: [],
   project: {}
 };
 
-export default function(state = intialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case GET_PROJECTS:
       return {
