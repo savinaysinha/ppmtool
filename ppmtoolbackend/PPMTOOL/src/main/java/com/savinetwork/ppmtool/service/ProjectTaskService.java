@@ -2,6 +2,8 @@ package com.savinetwork.ppmtool.service;
 
 import java.util.ArrayList;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -78,4 +80,17 @@ public class ProjectTaskService {
 		
 		return projectTask;
 	}
+
+	public ProjectTask updateProjectTaskByProjectSequence(@Valid ProjectTask updatedProjectTask, String projectIdentifier,
+			String projectSequence) {
+		if(!updatedProjectTask.getProjectIdentifier().equals(projectIdentifier)) {
+			throw new ProjectNotFoundException("Project Not Found");
+		}
+		ProjectTask projectTask = projectTaskRepository.findByprojectSequence(projectSequence);
+		projectTask=updatedProjectTask;
+		return projectTaskRepository.save(projectTask);
+	}
+	
+	
+	
 }
