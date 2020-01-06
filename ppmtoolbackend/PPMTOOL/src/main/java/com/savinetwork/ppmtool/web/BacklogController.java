@@ -25,25 +25,35 @@ import com.savinetwork.ppmtool.service.ProjectTaskService;
 public class BacklogController {
 	@Autowired
 	private ProjectTaskService projectTaskService;
-	
+
 	@Autowired
 	private MapErrorValidationService mapError;
-	
-	@PostMapping("{projectIdentifier}")
-	public ResponseEntity<?> saveProjectTask(@Valid @RequestBody ProjectTask projectTask,BindingResult result,@PathVariable String projectIdentifier){
-		
+
+	@PostMapping("/{projectIdentifier}")
+	public ResponseEntity<?> saveProjectTask(@Valid @RequestBody ProjectTask projectTask, BindingResult result,
+			@PathVariable String projectIdentifier) {
+
 		ResponseEntity<?> errors = mapError.mapError(result);
 		if (errors != null)
 			return errors;
-		
-		return new ResponseEntity<>(projectTaskService.addProjectTask(projectIdentifier, projectTask), HttpStatus.CREATED);
-		
+
+		ProjectTask projectTask2 = projectTaskService.addProjectTask(projectIdentifier, projectTask);
+
+		return new ResponseEntity<>(projectTask2, HttpStatus.CREATED);
+
+	}
+
+	@GetMapping("{projectIdentifier}")
+	public Iterable<ProjectTask> getAllProjectTaskByProjectId(@PathVariable String projectIdentifier) {
+
+		return projectTaskService.findProjectTaskByProjectIdentifier(projectIdentifier);
 	}
 	
-	@GetMapping("{projectIdentifier}")
-	public Iterable<ProjectTask> getAllProjectTaskByProjectId(@PathVariable String projectIdentifier){
+	@GetMapping("/{projectIdentifier}/{projectSequence}")
+	public ResponseEntity<ProjectTask> getProjectTaskByProjectSequennce(@PathVariable String projectIdentifier,@PathVariable String projectSequence){
 		
-		return projectTaskService.findProjectTaskByProjectIdentifier(projectIdentifier);
+		return new ResponseEntity<ProjectTask>(projectTaskService.findProjectTaskByProjectSequennce(projectIdentifier,projectSequence),HttpStatus.OK);
+		
 	}
 
 }

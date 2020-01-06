@@ -25,6 +25,7 @@ public class ProjectTaskService {
 
 	public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask) {
 		try {
+			System.out.println(projectIdentifier);
 			Backlog backlog = backlogRepository.findByProjectIdentifier(projectIdentifier);
 			projectTask.setBacklog(backlog);
 			System.out.println(backlog.getProjectIdentifier());
@@ -55,5 +56,10 @@ public class ProjectTaskService {
 		
 		
 		return projectTasks;
+	}
+
+	public ProjectTask findProjectTaskByProjectSequennce(String projectIdentifier, String projectSequence) {
+		
+		return projectTaskRepository.findByprojectSequence(projectSequence);
 	}
 }
