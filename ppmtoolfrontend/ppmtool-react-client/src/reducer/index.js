@@ -6,6 +6,7 @@ export default combineReducers({
     errors:ErrorReducer,
     projects:ProjectReducer,
     project:ProjectReducer,
-    backlog:BacklogReducer
+    projectTask:BacklogReducer,
+    projectTasks:BacklogReducer
     
 });

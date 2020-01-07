@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getProjectById,createProject } from "../../actions/ProjectActions";
 import PropTypes from "prop-types";
-import classnames from "classnames";
 
 class UpdateProject extends Component {
   state = {

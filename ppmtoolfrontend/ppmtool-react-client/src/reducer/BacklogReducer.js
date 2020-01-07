@@ -5,8 +5,8 @@ import {
 } from "../actions/type";
 
 const initialState = {
-  project_task: {},
-  project_tasks: []
+  projectTask: {},
+  projectTasks: []
 };
 
 export default function(state = initialState, action) {
@@ -14,12 +14,12 @@ export default function(state = initialState, action) {
     case GET_BACKLOG:
       return {
         ...state,
-        project_task: action.payload
+        projectTask: action.payload
       };
     case GET_PROJECT_TASKS:
       return {
         ...state,
-        project_tasks: action.payload
+        projectTasks: action.payload
       };
     case DELETE_PROJECT_TASK:
       return {

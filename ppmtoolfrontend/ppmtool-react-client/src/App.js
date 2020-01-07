@@ -8,15 +8,19 @@ import AddProjectForm from "./component/projectItems/AddProjectForm";
 import {Provider} from 'react-redux';
 import store from './store'
 import UpdateProject from "./component/projectItems/UpdateProject";
+import ProjectBoard from './component/projectboard/ProjectBoard'
+import AddProjectTask from './component/projectboard/projecttask/AddProjectTask'
 function App() {
   return (
     
     <Provider store={store}>
       <Router>
         <Navbar />
-        <Route path="/dashboard" component={Dashboard}/>
-        <Route exact path="/addProject" component={AddProjectForm}/>
-        <Route exact path="/updateProject/:id" component={UpdateProject}/>
+        <Route exact path="/dashboard" component={Dashboard}/>
+        <Route exact path="/dashboard/addProject" component={AddProjectForm}/>
+        <Route exact path="/dashboard/updateProject/:id" component={UpdateProject}/>
+        <Route exact path="/dashboard/backlog/:id" component={ProjectBoard}/>
+        <Route exact path="/dashboard/backlog/:id/addProjectTask" component={AddProjectTask}/>
       </Router>
       </Provider>
     
