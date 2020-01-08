@@ -14,6 +14,9 @@ class AddProjectTask extends Component {
     status: ""
   };
   onChange = e => {
+    
+    
+
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -135,7 +138,7 @@ class AddProjectTask extends Component {
   }
 }
 
-AddProjectTask.protoType = {
+AddProjectTask.propType = {
   createProjectTask: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
