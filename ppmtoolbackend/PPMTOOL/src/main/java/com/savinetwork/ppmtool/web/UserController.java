@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.savinetwork.ppmtool.model.User;
 import com.savinetwork.ppmtool.service.MapErrorValidationService;
 import com.savinetwork.ppmtool.service.UserService;
+import com.savinetwork.ppmtool.validator.UserValidator;
 
 @RestController
 @RequestMapping("api/users")
@@ -26,9 +27,12 @@ public class UserController {
 	
 	@Autowired
 	private MapErrorValidationService mapErrorValidationService;
+	@Autowired
+	private UserValidator userValidator;
 
 	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result ){
+		userValidator.validate(user, result);
 		ResponseEntity<?> errors = mapErrorValidationService.mapError(result);
 		if (errors != null)
 			return errors;
