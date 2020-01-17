@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.savinetwork.ppmtool.exception.UsernameAlreadyExistsException;
 import com.savinetwork.ppmtool.model.User;
 import com.savinetwork.ppmtool.repository.UserRespository;
 
@@ -17,8 +18,16 @@ public class UserService {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	public User saveUser(User newUser) {
-		newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
-		return userRespository.save(newUser);
+		try {
+			newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
+			newUser.setUsername(newUser.getUsername());
+			
+			return userRespository.save(newUser);
+		} catch (Exception e) {
+			throw new UsernameAlreadyExistsException("Username '"+newUser.getUsername()+"' already exist");
+		}
+		
+		
 	}
 	
 	
