@@ -1,5 +1,7 @@
 package com.savinetwork.ppmtool.web;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +33,11 @@ public class ProjectController {
 	private MapErrorValidationService mapError;
 
 	@PostMapping("")
-	public ResponseEntity<?> saveOrUpdate(@Valid @RequestBody Project project, BindingResult result) {
-		System.out.println(project.getProjectIdentifier());
+	public ResponseEntity<?> saveOrUpdate(@Valid @RequestBody Project project, BindingResult result, Principal principal) {
 		ResponseEntity<?> errors = mapError.mapError(result);
 		if (errors != null)
 			return errors;
-		return new ResponseEntity<Project>(projectService.createProject(project), HttpStatus.CREATED);
+		return new ResponseEntity<Project>(projectService.createProject(project,principal.getName()), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/{projectIdentifier}")

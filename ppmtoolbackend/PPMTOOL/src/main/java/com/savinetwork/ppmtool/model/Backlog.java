@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "backlogs")
 public class Backlog {
 
 	@Id
