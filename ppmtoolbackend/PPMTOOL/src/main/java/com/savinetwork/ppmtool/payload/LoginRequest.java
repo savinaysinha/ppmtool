@@ -2,6 +2,7 @@ package com.savinetwork.ppmtool.payload;
 
 import javax.validation.constraints.NotBlank;
 
+
 public class LoginRequest {
 
 	@NotBlank(message = "Username cannot be blank")
@@ -9,6 +10,11 @@ public class LoginRequest {
 	@NotBlank(message = "Password cannot be blank")
 	private String password;
 	 
+	
+	
+	public LoginRequest() {
+		
+	}
 	public String getUsername() {
 		return username;
 	}

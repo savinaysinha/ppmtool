@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					"/**/*.js"
 					).permitAll()
 			.antMatchers(SecurityConstant.SIGN_UP_URLS).permitAll()
-			.antMatchers(SecurityConstant.H2_URL).permitAll()
+			//.antMatchers(SecurityConstant.H2_URL).permitAll()
 			//any thing other than above need to authenticated
 			.anyRequest().authenticated();
 	}
