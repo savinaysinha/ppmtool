@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.savinetwork.ppmtool.security.SecurityConstant;
 import com.savinetwork.ppmtool.service.CustomUserDetailService;
@@ -45,6 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManager();
 	}
 
+	@Bean
+	public JwtAuthenticationFilter jwtAuthenticationFilter() {return new JwtAuthenticationFilter();}	
 
 
 	@Override
@@ -73,6 +76,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			//.antMatchers(SecurityConstant.H2_URL).permitAll()
 			//any thing other than above need to authenticated
 			.anyRequest().authenticated();
+		
+		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 	
 
