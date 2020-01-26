@@ -7,5 +7,6 @@ import com.savinetwork.ppmtool.model.User;
 
 @Repository
 public interface UserRespository extends CrudRepository<User, Long> {
-
+	User findByUsername(String username);
+	User getById(Long id);
 }
